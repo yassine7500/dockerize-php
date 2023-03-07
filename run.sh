@@ -11,7 +11,6 @@ fi
 git clone https://github.com/yassine7500/dockerize-php.git
 cd dockerize-php
 #remove the .git folder
-rm -rf .git
 
 #check that the tag exists
 if git ls-remote --exit-code --tags origin "v$PHP_VERSION" > /dev/null 2>&1; then
@@ -32,3 +31,5 @@ echo "To use npm, run: docker-compose run --rm npm <command>"
 echo "Change your .env file to use the following database configuration:"
 echo "DB_CONNECTION=mysql"
 echo "DB_HOST=mysql"
+
+rm -rf .git
