@@ -8,9 +8,17 @@ if [ -z "$PHP_VERSION" ]; then
     PHP_VERSION=7.4
 fi
 
+
+#if the current directory already has a dockerize-php folder, remove it
+if [ -d "dockerize-php" ]; then
+    rm -rf dockerize-php
+fi
+
 git clone https://github.com/yassine7500/dockerize-php.git
 cd dockerize-php
-#remove the .git folder
+mv docker-compose.yml ../
+mv -rf dockerfiles ../
+cd ..
 
 #check that the tag exists
 if git ls-remote --exit-code --tags origin "v$PHP_VERSION" > /dev/null 2>&1; then
@@ -32,4 +40,4 @@ echo "Change your .env file to use the following database configuration:"
 echo "DB_CONNECTION=mysql"
 echo "DB_HOST=mysql"
 
-rm -rf .git
+rm -rf dockerize-php
