@@ -8,7 +8,6 @@ if [ -z "$PHP_VERSION" ]; then
     PHP_VERSION=7.4
 fi
 
-
 #if the current directory already has a dockerize-php folder, remove it
 if [ -d "dockerize-php" ]; then
     rm -rf dockerize-php
@@ -16,12 +15,10 @@ fi
 
 git clone https://github.com/yassine7500/dockerize-php.git
 cd dockerize-php
-mv docker-compose.yml ../
-mv dockerfiles ../
-cd ..
+
 
 #check that the tag exists
-if git ls-remote --exit-code --tags origin "v$PHP_VERSION" > /dev/null 2>&1; then
+if git tag -l | grep -q "v$PHP_VERSION"; then
     echo "Using PHP version $PHP_VERSION"
     git checkout "v$PHP_VERSION"
 else
@@ -29,16 +26,10 @@ else
     exit 1
 fi
 
+mv docker-compose.yml ../
+mv dockerfiles ../
+cd ..
 docker-compose up -d --build --force-recreate --remove-orphans --no-deps 
-
-echo "PHP version $PHP_VERSION is running on port 8080"
-echo "TO use artisan, run: docker-compose run --rm artisan <command>"
-echo "To use composer, run: docker-compose run --rm composer <command>"
-echo "To use npm, run: docker-compose run --rm npm <command>"
-
-echo "Change your .env file to use the following database configuration:"
-echo "DB_CONNECTION=mysql"
-echo "DB_HOST=mysql"
 
 rm -rf dockerize-php
 
