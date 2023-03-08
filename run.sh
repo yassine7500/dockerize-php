@@ -17,7 +17,7 @@ fi
 git clone https://github.com/yassine7500/dockerize-php.git
 cd dockerize-php
 mv docker-compose.yml ../
-mv -rf dockerfiles ../
+mv -r dockerfiles ../
 cd ..
 
 #check that the tag exists
@@ -41,3 +41,12 @@ echo "DB_CONNECTION=mysql"
 echo "DB_HOST=mysql"
 
 rm -rf dockerize-php
+
+#ask the user if he wants to gitignore docker-compose.yml and dockerfiles folder
+read -p "Do you want to add docker-compose.yml and dockerfiles folder to .gitignore? [y/n] " -n 1 -r
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    echo "docker-compose.yml" >> .gitignore
+    echo "dockerfiles" >> .gitignore
+fi
+
