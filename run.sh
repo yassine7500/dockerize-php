@@ -17,7 +17,7 @@ fi
 git clone https://github.com/yassine7500/dockerize-php.git
 cd dockerize-php
 mv docker-compose.yml ../
-mv -r dockerfiles ../
+mv dockerfiles ../
 cd ..
 
 #check that the tag exists
